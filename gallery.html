@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Travel with Ali</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+    <header class="inner-page">
+  <nav>
+
+        <div class="logo">
+
+            <a href="#home">
+                Travel <span>with Ali</span>
+            </a>
+
+        </div>
+
+       <ul class="nav-links">
+
+    <li><a href="index.html">Home</a></li>
+
+    <li><a href="destinations.html">Destinations</a></li>
+
+    <li><a href="packages.html">Packages</a></li>
+
+    <li><a href="gallery.html">Gallery</a></li>
+
+    <li><a href="about.html">About</a></li>
+
+    <li><a href="contact.html">Contact</a></li>
+
+</ul>
+
+<a href="packages.html" class="book-btn">
+    Book Now
+</a>
+
+    </nav>
+
+
+    </header>
+
+
+  <!-- ===========================
+        GALLERY
+=========================== -->
+
+ <!-- <section class="gallery" id="gallery">
+
+    <div class="section-title">
+
+        <h2>Travel Gallery</h2>
+
+        <p>Moments that inspire your next journey.</p>
+
+    </div>
+
+    <div class="gallery-container">
+
+        <div class="gallery-item">
+            <img src="images/gallery1.jpg" alt="Gallery 1">
+            <div class="overlay">Cappadocia</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="images/gallery2.jpg" alt="Gallery 2">
+            <div class="overlay">Santorini</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="images/gallery3.jpg" alt="Gallery 3">
+            <div class="overlay">Maldives</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="images/gallery4.jpg" alt="Gallery 4">
+            <div class="overlay">Swiss Alps</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="images/gallery5.jpg" alt="Gallery 5">
+            <div class="overlay">Dubai</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="images/gallery6.jpg" alt="Gallery 6">
+            <div class="overlay">Bali</div>
+        </div>
+        <div class="gallery-item">
+    <img src="images/gallery7.jpg" alt="Paris">
+    <div class="overlay">Paris</div>
+</div>
+
+<div class="gallery-item">
+    <img src="images/gallery8.jpg" alt="Northern Lights">
+    <div class="overlay">Norway</div>
+</div>
+
+    </div>
+
+</section>  -->
+ <!-- ===========================
+        GALLERY
+=========================== -->
+
+ <section class="gallery" id="gallery">
+
+    <div class="section-title">
+
+        <h2>Travel Gallery</h2>
+
+        <p>Moments that inspire your next journey.</p>
+
+    </div>
+
+    <div class="gallery-filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="beach">Beach</button>
+        <button class="filter-btn" data-filter="mountain">Mountain</button>
+        <button class="filter-btn" data-filter="adventure">Adventure</button>
+        <button class="filter-btn" data-filter="city">City</button>
+    </div>
+
+    <div class="gallery-container">
+
+        <div class="gallery-item" data-category="adventure">
+            <img src="images/gallery1.jpg" alt="Gallery 1">
+            <div class="overlay">
+                <h3>Cappadocia</h3>
+                <p>Hot air balloons drifting over fairy chimneys at sunrise.</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="beach">
+            <img src="images/gallery2.jpg" alt="Gallery 2">
+            <div class="overlay">
+                <h3>Santorini</h3>
+                <p>Whitewashed cliffs meeting the deep blue Aegean Sea.</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="beach">
+            <img src="images/gallery3.jpg" alt="Gallery 3">
+            <div class="overlay">
+                <h3>Maldives</h3>
+                <p>Crystal-clear lagoons and overwater villas.</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="mountain">
+            <img src="images/gallery4.jpg" alt="Gallery 4">
+            <div class="overlay">
+                <h3>Swiss Alps</h3>
+                <p>Snow-capped peaks touching the clouds.</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="city">
+            <img src="images/gallery5.jpg" alt="Gallery 5">
+            <div class="overlay">
+                <h3>Dubai</h3>
+                <p>Where the desert meets a futuristic skyline.</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="beach">
+            <img src="images/gallery6.jpg" alt="Gallery 6">
+            <div class="overlay">
+                <h3>Bali</h3>
+                <p>Lush rice terraces and golden temple sunsets.</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="city">
+            <img src="images/gallery7.jpg" alt="Paris">
+            <div class="overlay">
+                <h3>Paris</h3>
+                <p>The city of lights, romance and timeless charm.</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="adventure">
+            <img src="images/gallery8.jpg" alt="Northern Lights">
+            <div class="overlay">
+                <h3>Norway</h3>
+                <p>Dancing auroras beneath the midnight sky.</p>
+            </div>
+        </div>
+        <div class="gallery-item" data-category="city">
+            <img src="images/gallery9.jpg" alt="Paris">
+            <div class="overlay">
+                <h3>New York</h3>
+                <p>The city that never sleeps, with iconic landmarks and endless opportunities.</p>
+            </div>
+        </div>
+        <div class="gallery-item" data-category="beach">
+            <img src="images/gallery10.jpg" alt="Goa">
+            <div class="overlay">
+                <h3>Goa</h3>
+                <p>Where the waves meet the soul.</p>
+            </div>
+        </div>
+        <div class="gallery-item" data-category="mountain">
+            <img src="images/gallery11.jpg" alt="shimla">
+            <div class="overlay">
+                <h3>Shimla, Himachal Pradesh</h3>
+                <p>The Queen of Hills, known for its colonial architecture and scenic beauty.</p>
+            </div>
+        </div>
+        <div class="gallery-item" data-category="mountain">
+            <img src="images/gallery12.jpg" alt="Darjeeling">
+            <div class="overlay">
+                <h3>Darjeeling, West Bengal</h3>
+                <p>The hill station known for its tea plantations and breathtaking views.</p>
+            </div>
+        </div>
+        <div class="gallery-item" data-category="mountain">
+            <img src="images/gallery13.jpg" alt="Valley of Flowers">
+            <div class="overlay">
+                <h3>Valley of Flowers, Uttarakhand</h3>
+                <p>Trekking • Wildflowers • Himalayan Views</p>
+            </div>
+        </div>
+        <div class="gallery-item" data-category="adventure">
+            <img src="images/gallery14.jpg" alt="icecaves">
+            <div class="overlay">
+                <h3>🇮🇸 Iceland</h3>
+                <p>A dramatic Icelandic landscape with a glacier, blue ice cave, or waterfall.</p>
+            </div>
+        </div>
+        <div class="gallery-item" data-category="adventure">
+            <img src="images/gallery15.jpg" alt="wildlife">
+            <div class="overlay">
+                <h3>Jim Corbett — wildlife safari</h3>
+                <p>Experience the thrill of spotting majestic wildlife in their natural habitat.</p>
+            </div>
+        </div>
+        <div class="gallery-item" data-category="city">
+            <img src="images/gallery16.jpg" alt="hyderabad">
+            <div class="overlay">
+                <h3>Hyderabad</h3>
+                <p>The City of Pearls, known for its rich history and vibrant culture.</p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <button class="lightbox-prev" id="lightboxPrev">&#10094;</button>
+    <div class="lightbox-image-wrap">
+        <img src="" alt="" id="lightboxImg">
+    </div>
+    <button class="lightbox-next" id="lightboxNext">&#10095;</button>
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+    <p class="lightbox-subcaption" id="lightboxSubcaption"></p>
+    <p class="lightbox-counter" id="lightboxCounter"></p>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const galleryItems = document.querySelectorAll(".gallery-item");
+
+    filterButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            filterButtons.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            const category = btn.dataset.filter;
+            galleryItems.forEach((item) => {
+                const matches = category === "all" || item.dataset.category === category;
+                item.classList.toggle("hidden", !matches);
+            });
+        });
+    });
+
+    const lightbox = document.getElementById("lightbox");
+
+    if (lightbox && galleryItems.length) {
+        const lightboxImg = document.getElementById("lightboxImg");
+        const lightboxCaption = document.getElementById("lightboxCaption");
+        const lightboxSubcaption = document.getElementById("lightboxSubcaption");
+        const lightboxCounter = document.getElementById("lightboxCounter");
+        const closeBtn = document.getElementById("lightboxClose");
+        const prevBtn = document.getElementById("lightboxPrev");
+        const nextBtn = document.getElementById("lightboxNext");
+        const allItems = Array.from(galleryItems);
+        let currentIndex = 0;
+
+        function showSlide() {
+            const item = allItems[currentIndex];
+            const img = item.querySelector("img");
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightboxCaption.textContent = item.querySelector(".overlay h3")?.textContent || "";
+            lightboxSubcaption.textContent = item.querySelector(".overlay p")?.textContent || "";
+            lightboxCounter.textContent = `${currentIndex + 1} / ${allItems.length}`;
+        }
+
+        function openLightbox(index) { currentIndex = index; showSlide(); lightbox.classList.add("open"); }
+        function closeLightbox() { lightbox.classList.remove("open"); }
+        function showNext() { currentIndex = (currentIndex + 1) % allItems.length; showSlide(); }
+        function showPrev() { currentIndex = (currentIndex - 1 + allItems.length) % allItems.length; showSlide(); }
+
+        allItems.forEach((item, index) => item.addEventListener("click", () => openLightbox(index)));
+        closeBtn.addEventListener("click", closeLightbox);
+        nextBtn.addEventListener("click", showNext);
+        prevBtn.addEventListener("click", showPrev);
+        lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
+        document.addEventListener("keydown", (e) => {
+            if (!lightbox.classList.contains("open")) return;
+            if (e.key === "Escape") closeLightbox();
+            if (e.key === "ArrowRight") showNext();
+            if (e.key === "ArrowLeft") showPrev();
+        });
+    }
+});
+</script>
+
+
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="site-footer">
+
+    <div class="footer-main">
+
+        <!-- Brand -->
+        <div class="footer-brand">
+            <a href="home.html" class="footer-logo">
+                Travel <span>with Ali</span>
+            </a>
+
+            <p class="footer-description">
+                Explore beautiful destinations, discover new experiences,
+                and make every journey a memorable one.
+            </p>
+
+            <div class="footer-socials">
+                <a href="#" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <a href="#" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+
+                <a href="#" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+
+                <a href="#" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+
+
+        <!-- Explore -->
+        <div class="footer-column">
+            <h3>Explore</h3>
+
+            <a href="home.html">Home</a>
+            <a href="destinations.html">Destinations</a>
+            <a href="packages.html">Packages</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="about.html">About Us</a>
+        </div>
+
+
+        <!-- Travel -->
+        <div class="footer-column">
+            <h3>Travel With Us</h3>
+
+            <a href="packages.html">Popular Packages</a>
+            <a href="destinations.html">Popular Destinations</a>
+            <a href="contact.html">Plan Your Trip</a>
+            <a href="contact.html">Book a Journey</a>
+            <a href="#">Travel Tips</a>
+        </div>
+
+
+        <!-- Contact -->
+        <div class="footer-column footer-contact">
+            <h3>Get In Touch</h3>
+
+            <p>
+                <i class="fas fa-location-dot"></i>
+                <span>Kurnool, Andhra Pradesh, India</span>
+            </p>
+
+             <p>
+    <i class="fas fa-phone"></i>
+    <span>+91 99392 19934</span>
+</p>
+
+<p>
+    <i class="fas fa-envelope"></i>
+    <span>travelwithali@gmail.com</span>
+</p>
+        </div>
+
+    </div>
+
+
+    <!-- Newsletter -->
+    <div class="footer-newsletter">
+
+        <div class="newsletter-text">
+            <span class="newsletter-icon">✈</span>
+
+            <div>
+                <h3>Ready for your next journey?</h3>
+                <p>
+                    Stay inspired with travel ideas and special offers.
+                </p>
+            </div>
+        </div>
+
+        <form class="newsletter-form" id="newsletterForm">
+
+            <input
+                type="email"
+                id="newsletterEmail"
+                placeholder="Enter your email"
+                required
+            >
+
+            <button type="submit">
+                Subscribe
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Bottom -->
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 <span>Travel with Ali</span>. All rights reserved.
+        </p>
+
+        <div class="footer-bottom-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+        </div>
+
+    </div>
+
+</footer>
+
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

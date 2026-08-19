@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tour Packages | Travel with Ali</title>
+
+    <!-- Existing CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/enhance.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- =====================================================
+         BOOKING / PAYMENT CSS
+         Kept inside packages.html so other pages are unaffected
+    ====================================================== -->
+
+    <style>
+
+        /* =========================
+           BOOKING MODAL
+        ========================= */
+
+        .booking-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .booking-overlay.active {
+            display: flex;
+        }
+
+        .booking-modal {
+            width: 100%;
+            max-width: 520px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: bookingAppear 0.35s ease;
+        }
+
+        @keyframes bookingAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .booking-close {
+            position: absolute;
+            top: 15px;
+            right: 18px;
+            width: 35px;
+            height: 35px;
+            border: none;
+            border-radius: 50%;
+            background: #f1f1f1;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .booking-close:hover {
+            background: #0088cc;
+            color: white;
+        }
+
+        /* =========================
+           BOOKING HEADER
+        ========================= */
+
+        .booking-header {
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        .booking-icon {
+            width: 60px;
+            height: 60px;
+            margin: auto;
+            border-radius: 50%;
+            background: #0088cc;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .booking-header h2 {
+            margin-bottom: 5px;
+            color: #222;
+        }
+
+        .booking-header p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* =========================
+           PACKAGE SUMMARY
+        ========================= */
+
+        .booking-package {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            background: #f5faff;
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 22px;
+        }
+
+        .booking-package img {
+            width: 90px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .booking-package-info h3 {
+            margin: 0 0 5px;
+            font-size: 17px;
+        }
+
+        .booking-package-info p {
+            margin: 0;
+            font-size: 13px;
+            color: #777;
+        }
+
+        .booking-price {
+            margin-left: auto;
+            font-weight: 700;
+            color: #0088cc;
+            font-size: 17px;
+        }
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .booking-form {
+            display: grid;
+            gap: 14px;
+        }
+
+        .booking-form label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .booking-form input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 9px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .booking-form input:focus {
+            border-color: #0088cc;
+        }
+
+        .continue-btn,
+        .pay-btn {
+            border: none;
+            background: #0088cc;
+            color: white;
+            padding: 13px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 15px;
+            margin-top: 5px;
+        }
+
+        .continue-btn:hover,
+        .pay-btn:hover {
+            background: #006fa8;
+        }
+
+        /* =========================
+           PAYMENT OPTIONS
+        ========================= */
+
+        .payment-section {
+            display: none;
+        }
+
+        .payment-section.active {
+            display: block;
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .payment-option {
+            border: 1px solid #ddd;
+            padding: 15px 10px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        .payment-option i {
+            font-size: 25px;
+            color: #0088cc;
+            margin-bottom: 7px;
+        }
+
+        .payment-option:hover,
+        .payment-option.selected {
+            border-color: #0088cc;
+            background: #f0faff;
+        }
+
+        .payment-form {
+            display: none;
+        }
+
+        .payment-form.active {
+            display: block;
+        }
+
+        .payment-form input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 9px;
+            margin-bottom: 12px;
+            font-family: inherit;
+        }
+
+        .card-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        .booking-loading {
+            display: none;
+            text-align: center;
+            padding: 35px 10px;
+        }
+
+        .booking-loading.active {
+            display: block;
+        }
+
+        .loader {
+            width: 45px;
+            height: 45px;
+            border: 4px solid #ddd;
+            border-top-color: #0088cc;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: auto;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* =========================
+           SUCCESS RECEIPT
+        ========================= */
+
+        .booking-success {
+            display: none;
+            text-align: center;
+        }
+
+        .booking-success.active {
+            display: block;
+        }
+
+        .success-icon {
+            width: 70px;
+            height: 70px;
+            background: #18a558;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 15px;
+        }
+
+        .receipt {
+            margin-top: 20px;
+            background: #f8f8f8;
+            border-radius: 12px;
+            padding: 18px;
+            text-align: left;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+            font-size: 14px;
+        }
+
+        .receipt-row:last-child {
+            border-bottom: none;
+        }
+
+        .receipt-total {
+            font-size: 17px;
+            font-weight: 700;
+            color: #0088cc;
+        }
+
+        .done-btn {
+            width: 100%;
+            margin-top: 18px;
+            border: none;
+            background: #222;
+            color: white;
+            padding: 12px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .done-btn:hover {
+            background: #0088cc;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 500px) {
+
+            .booking-modal {
+                padding: 22px;
+            }
+
+            .payment-options {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-package {
+                flex-wrap: wrap;
+            }
+
+            .booking-price {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header class="inner-page">
+
+        <nav>
+
+            <div class="logo">
+
+                <a href="index.html">
+                    Travel <span>with Ali</span>
+                </a>
+
+            </div>
+
+            <ul class="nav-links">
+
+                <li><a href="index.html">Home</a></li>
+
+                <li><a href="destinations.html">Destinations</a></li>
+
+                <li><a href="packages.html" class="active">Packages</a></li>
+
+                <li><a href="gallery.html">Gallery</a></li>
+
+                <li><a href="about.html">About</a></li>
+
+                <li><a href="contact.html">Contact</a></li>
+
+            </ul>
+
+            <a href="packages.html" class="book-btn">
+                Book Now
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =====================================================
+         PACKAGES
+    ====================================================== -->
+
+    <section class="packages" id="packages">
+
+        <div class="section-title">
+
+            <h2>Popular Tour Packages</h2>
+
+            <p>
+                Find the perfect package for your next adventure.
+            </p>
+
+        </div>
+
+
+        <div class="package-container">
+
+
+            <!-- ================= GOA ================= -->
+
+            <div class="package-card">
+
+                <img src="images/package1.jpg" alt="Goa Package">
+
+                <div class="package-content">
+
+                    <h3>Goa Beach Escape</h3>
+
+                    <p>🌴 4 Days / 3 Nights</p>
+
+                    <p>⭐⭐⭐⭐⭐ (4.9)</p>
+
+                    <h4>₹12,999</h4>
+
+                    <div class="package-includes">
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Hotel Stay
+                        </span>
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Meals
+                        </span>
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Transport
+                        </span>
+
+                        <span>
+                            <i class="fas fa-times-circle"></i>
+                            Flights
+                        </span>
+
+                    </div>
+
+
+                    <div class="itinerary-btn">
+                        View Itinerary
+                    </div>
+
+                    <div class="itinerary-details">
+
+                        <div class="day">
+                            <strong>Day 1</strong>
+                            Arrival & beach relaxation at Baga
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 2</strong>
+                            Water sports & North Goa sightseeing
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 3</strong>
+                            Old Goa churches & local markets
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 4</strong>
+                            Departure
+                        </div>
+
+                    </div>
+
+                    <button class="package-book-btn">
+                        Book Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= MANALI ================= -->
+
+            <div class="package-card">
+
+                <span class="package-badge popular">
+                    Most Popular
+                </span>
+
+                <img src="images/package2.jpg" alt="Manali Package">
+
+                <div class="package-content">
+
+                    <h3>Manali Adventure</h3>
+
+                    <p>🏔 5 Days / 4 Nights</p>
+
+                    <p>⭐⭐⭐⭐⭐ (4.8)</p>
+
+                    <h4>₹18,499</h4>
+
+                    <div class="package-includes">
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Hotel Stay
+                        </span>
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Meals
+                        </span>
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Transport
+                        </span>
+
+                        <span>
+                            <i class="fas fa-times-circle"></i>
+                            Flights
+                        </span>
+
+                    </div>
+
+
+                    <div class="itinerary-btn">
+                        View Itinerary
+                    </div>
+
+                    <div class="itinerary-details">
+
+                        <div class="day">
+                            <strong>Day 1</strong>
+                            Arrival in Manali & local market walk
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 2</strong>
+                            Solang Valley adventure sports
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 3</strong>
+                            Rohtang Pass excursion
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 4</strong>
+                            Old Manali & cafe hopping
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 5</strong>
+                            Departure
+                        </div>
+
+                    </div>
+
+                    <button class="package-book-btn">
+                        Book Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= KERALA ================= -->
+
+            <div class="package-card">
+
+                <span class="package-badge rated">
+                    Top Rated
+                </span>
+
+                <img src="images/package3.jpg" alt="Kerala Package">
+
+                <div class="package-content">
+
+                    <h3>Kerala Backwaters</h3>
+
+                    <p>🚤 6 Days / 5 Nights</p>
+
+                    <p>⭐⭐⭐⭐⭐ (5.0)</p>
+
+                    <h4>₹21,999</h4>
+
+                    <div class="package-includes">
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Hotel Stay
+                        </span>
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Meals
+                        </span>
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Transport
+                        </span>
+
+                        <span>
+                            <i class="fas fa-times-circle"></i>
+                            Flights
+                        </span>
+
+                    </div>
+
+
+                    <div class="itinerary-btn">
+                        View Itinerary
+                    </div>
+
+                    <div class="itinerary-details">
+
+                        <div class="day">
+                            <strong>Day 1</strong>
+                            Arrival in Kochi
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 2</strong>
+                            Munnar hill station & tea gardens
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 3</strong>
+                            Thekkady wildlife sanctuary
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 4</strong>
+                            Alleppey houseboat stay
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 5</strong>
+                            Kovalam beach
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 6</strong>
+                            Departure
+                        </div>
+
+                    </div>
+
+                    <button class="package-book-btn">
+                        Book Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= KASHMIR ================= -->
+
+            <div class="package-card">
+
+                <img src="images/kashmir.jpg" alt="Kashmir Package">
+
+                <div class="package-content">
+
+                    <h3>Kashmir Paradise</h3>
+
+                    <p>❄️ 5 Days / 4 Nights</p>
+
+                    <p>⭐⭐⭐⭐⭐ (4.9)</p>
+
+                    <h4>₹22,999</h4>
+
+                    <div class="package-includes">
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Hotel Stay
+                        </span>
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Meals
+                        </span>
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Transport
+                        </span>
+
+                        <span>
+                            <i class="fas fa-times-circle"></i>
+                            Flights
+                        </span>
+
+                    </div>
+
+
+                    <div class="itinerary-btn">
+                        View Itinerary
+                    </div>
+
+                    <div class="itinerary-details">
+
+                        <div class="day">
+                            <strong>Day 1</strong>
+                            Arrival in Srinagar & Dal Lake Shikara ride
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 2</strong>
+                            Gulmarg gondola & snow activities
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 3</strong>
+                            Pahalgam valley sightseeing
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 4</strong>
+                            Local markets & houseboat stay
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 5</strong>
+                            Departure
+                        </div>
+
+                    </div>
+
+                    <button class="package-book-btn">
+                        Book Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= RAJASTHAN ================= -->
+
+            <div class="package-card">
+
+                <img src="images/jaipur.jpg" alt="Rajasthan Package">
+
+                <div class="package-content">
+
+                    <h3>Rajasthan Heritage Tour</h3>
+
+                    <p>🏰 5 Days / 4 Nights</p>
+
+                    <p>⭐⭐⭐⭐ (4.7)</p>
+
+                    <h4>₹19,499</h4>
+
+                    <div class="package-includes">
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Hotel Stay
+                        </span>
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Meals
+                        </span>
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Transport
+                        </span>
+
+                        <span>
+                            <i class="fas fa-times-circle"></i>
+                            Flights
+                        </span>
+
+                    </div>
+
+
+                    <div class="itinerary-btn">
+                        View Itinerary
+                    </div>
+
+                    <div class="itinerary-details">
+
+                        <div class="day">
+                            <strong>Day 1</strong>
+                            Arrival in Jaipur, Amber Fort visit
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 2</strong>
+                            City Palace & local bazaars
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 3</strong>
+                            Travel to Udaipur, City of Lakes
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 4</strong>
+                            Udaipur sightseeing & boat ride
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 5</strong>
+                            Departure
+                        </div>
+
+                    </div>
+
+                    <button class="package-book-btn">
+                        Book Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= LADAKH ================= -->
+
+            <div class="package-card">
+
+                <span class="package-badge popular">
+                    New
+                </span>
+
+                <img src="images/ladakh.jpg" alt="Ladakh Package">
+
+                <div class="package-content">
+
+                    <h3>Ladakh Bike Expedition</h3>
+
+                    <p>🏍 7 Days / 6 Nights</p>
+
+                    <p>⭐⭐⭐⭐⭐ (4.9)</p>
+
+                    <h4>₹27,999</h4>
+
+                    <div class="package-includes">
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Hotel Stay
+                        </span>
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Meals
+                        </span>
+
+                        <span>
+                            <i class="fas fa-check-circle"></i>
+                            Transport
+                        </span>
+
+                        <span>
+                            <i class="fas fa-times-circle"></i>
+                            Flights
+                        </span>
+
+                    </div>
+
+
+                    <div class="itinerary-btn">
+                        View Itinerary
+                    </div>
+
+                    <div class="itinerary-details">
+
+                        <div class="day">
+                            <strong>Day 1</strong>
+                            Arrival in Leh & acclimatization
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 2</strong>
+                            Local sightseeing & bike prep
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 3</strong>
+                            Ride to Nubra Valley via Khardung La
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 4</strong>
+                            Nubra to Pangong Lake
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 5</strong>
+                            Pangong to Leh
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 6</strong>
+                            Buffer/rest day
+                        </div>
+
+                        <div class="day">
+                            <strong>Day 7</strong>
+                            Departure
+                        </div>
+
+                    </div>
+
+                    <button class="package-book-btn">
+                        Book Now
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAGINATION -->
+
+        <div class="package-pagination">
+
+            <button class="pkg-nav-btn"
+                id="pkgPrev"
+                aria-label="Previous packages">
+                &#10094;
+            </button>
+
+            <span
+                class="package-page-indicator"
+                id="pkgPageIndicator">
+            </span>
+
+            <button class="pkg-nav-btn"
+                id="pkgNext"
+                aria-label="Next packages">
+                &#10095;
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         BOOKING POPUP
+    ====================================================== -->
+
+    <div class="booking-overlay" id="bookingOverlay">
+
+        <div class="booking-modal">
+
+            <button class="booking-close" id="bookingClose">
+                ✕
+            </button>
+
+
+            <!-- LOADING -->
+
+            <div class="booking-loading" id="bookingLoading">
+
+                <div class="loader"></div>
+
+                <h3>Preparing your journey...</h3>
+
+                <p>Please wait a moment.</p>
+
+            </div>
+
+
+            <!-- BOOKING FORM -->
+
+            <div id="bookingStep">
+
+                <div class="booking-header">
+
+                    <div class="booking-icon">
+                        <i class="fas fa-suitcase-rolling"></i>
+                    </div>
+
+                    <h2>Complete Your Booking</h2>
+
+                    <p>Your adventure is just one step away.</p>
+
+                </div>
+
+
+                <div class="booking-package">
+
+                    <img id="bookingImage"
+                        src=""
+                        alt="Selected package">
+
+                    <div class="booking-package-info">
+
+                        <h3 id="bookingPackageName">
+                            Package
+                        </h3>
+
+                        <p id="bookingPackageDuration">
+                            Duration
+                        </p>
+
+                    </div>
+
+                    <div class="booking-price"
+                        id="bookingPackagePrice">
+                        ₹0
+                    </div>
+
+                </div>
+
+
+                <form class="booking-form"
+                    id="travellerForm">
+
+                    <div>
+
+                        <label>
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="travellerName"
+                            placeholder="Enter your name"
+                            required>
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="travellerEmail"
+                            placeholder="Enter your email"
+                            required>
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Mobile Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="travellerPhone"
+                            placeholder="Enter mobile number"
+                            required>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="continue-btn">
+
+                        Continue to Payment
+                        <i class="fas fa-arrow-right"></i>
+
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- PAYMENT -->
+
+            <div class="payment-section"
+                id="paymentStep">
+
+                <div class="booking-header">
+
+                    <div class="booking-icon">
+
+                        <i class="fas fa-credit-card"></i>
+
+                    </div>
+
+                    <h2>Choose Payment</h2>
+
+                    <p>
+                        Select your preferred payment method.
+                    </p>
+
+                </div>
+
+
+                <div class="payment-options">
+
+                    <div
+                        class="payment-option"
+                        data-payment="upi">
+
+                        <i class="fas fa-mobile-screen-button"></i>
+
+                        <div>
+                            UPI
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="payment-option"
+                        data-payment="card">
+
+                        <i class="fas fa-credit-card"></i>
+
+                        <div>
+                            Credit / Debit Card
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- UPI -->
+
+                <div
+                    class="payment-form"
+                    id="upiForm">
+
+                    <label>
+                        UPI ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="upiId"
+                        placeholder="example@upi">
+
+                    <button
+                        class="pay-btn"
+                        id="upiPayBtn"
+                        type="button">
+
+                        Pay Securely
+                        <i class="fas fa-lock"></i>
+
+                    </button>
+
+                </div>
+
+
+                <!-- CARD -->
+
+                <div
+                    class="payment-form"
+                    id="cardForm">
+
+                    <label>
+                        Card Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="cardNumber"
+                        placeholder="1234 5678 9012 3456"
+                        maxlength="19">
+
+
+                    <div class="card-row">
+
+                        <input
+                            type="text"
+                            placeholder="MM / YY"
+                            maxlength="5">
+
+                        <input
+                            type="password"
+                            placeholder="CVV"
+                            maxlength="3">
+
+                    </div>
+
+
+                    <button
+                        class="pay-btn"
+                        id="cardPayBtn"
+                        type="button">
+
+                        Pay Securely
+                        <i class="fas fa-lock"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- SUCCESS -->
+
+            <div
+                class="booking-success"
+                id="bookingSuccess">
+
+                <div class="success-icon">
+
+                    <i class="fas fa-check"></i>
+
+                </div>
+
+                <h2>Booking Confirmed!</h2>
+
+                <p>
+                    Your journey with Travel with Ali is confirmed.
+                </p>
+
+
+                <div class="receipt">
+
+                    <div class="receipt-row">
+
+                        <span>
+                            Booking ID
+                        </span>
+
+                        <strong id="receiptId">
+                            TA000000
+                        </strong>
+
+                    </div>
+
+
+                    <div class="receipt-row">
+
+                        <span>
+                            Traveller
+                        </span>
+
+                        <strong id="receiptName">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="receipt-row">
+
+                        <span>
+                            Package
+                        </span>
+
+                        <strong id="receiptPackage">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="receipt-row">
+
+                        <span>
+                            Payment
+                        </span>
+
+                        <strong id="receiptPayment">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="receipt-row">
+
+                        <span>
+                            Total Paid
+                        </span>
+
+                        <strong
+                            class="receipt-total"
+                            id="receiptAmount">
+                            ₹0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="done-btn"
+                    id="doneBtn">
+
+                    Done
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="footer-main">
+
+            <div class="footer-brand">
+
+                <a href="index.html"
+                    class="footer-logo">
+
+                    Travel <span>with Ali</span>
+
+                </a>
+
+                <p class="footer-description">
+
+                    Explore beautiful destinations,
+                    discover new experiences,
+                    and make every journey a memorable one.
+
+                </p>
+
+
+                <div class="footer-socials">
+
+                    <a href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+
+                    <a href="#">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+
+                    <a href="#">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+
+                    <a href="#">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>Explore</h3>
+
+                <a href="index.html">Home</a>
+
+                <a href="destinations.html">
+                    Destinations
+                </a>
+
+                <a href="packages.html">
+                    Packages
+                </a>
+
+                <a href="gallery.html">
+                    Gallery
+                </a>
+
+                <a href="about.html">
+                    About Us
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>Travel With Us</h3>
+
+                <a href="packages.html">
+                    Popular Packages
+                </a>
+
+                <a href="destinations.html">
+                    Popular Destinations
+                </a>
+
+                <a href="contact.html">
+                    Plan Your Trip
+                </a>
+
+                <a href="contact.html">
+                    Book a Journey
+                </a>
+
+                <a href="#">
+                    Travel Tips
+                </a>
+
+            </div>
+
+
+            <div class="footer-column footer-contact">
+
+                <h3>Get In Touch</h3>
+
+                <p>
+
+                    <i class="fas fa-location-dot"></i>
+
+                    <span>
+                        Kurnool, Andhra Pradesh, India
+                    </span>
+
+                </p>
+
+
+                <p>
+
+                    <i class="fas fa-phone"></i>
+
+                    <span>
+                        +91 99392 19934
+                    </span>
+
+                </p>
+
+
+                <p>
+
+                    <i class="fas fa-envelope"></i>
+
+                    <span>
+                        travelwithali@gmail.com
+                    </span>
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- NEWSLETTER -->
+
+        <div class="footer-newsletter">
+
+            <div class="newsletter-text">
+
+                <span class="newsletter-icon">
+                    ✈
+                </span>
+
+                <div>
+
+                    <h3>
+                        Ready for your next journey?
+                    </h3>
+
+                    <p>
+                        Stay inspired with travel ideas
+                        and special offers.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form
+                class="newsletter-form"
+                id="newsletterForm">
+
+                <input
+                    type="email"
+                    id="newsletterEmail"
+                    placeholder="Enter your email"
+                    required>
+
+                <button type="submit">
+                    Subscribe
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- FOOTER BOTTOM -->
+
+        <div class="footer-bottom">
+
+            <p>
+
+                © 2026
+                <span>Travel with Ali</span>.
+                All rights reserved.
+
+            </p>
+
+
+            <div class="footer-bottom-links">
+
+                <a href="#">
+                    Privacy Policy
+                </a>
+
+                <a href="#">
+                    Terms & Conditions
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =====================================================
+         EXISTING JAVASCRIPT
+    ====================================================== -->
+
+    <script src="js/script.js"></script>
+    <script src="js/enhance.js"></script>
+
+
+    <!-- =====================================================
+         BOOKING SYSTEM JAVASCRIPT
+         Kept ONLY inside packages.html
+    ====================================================== -->
+
+    <script>
+
+        /* ==========================================
+           BOOKING VARIABLES
+        ========================================== */
+
+        const bookingOverlay =
+            document.getElementById("bookingOverlay");
+
+        const bookingLoading =
+            document.getElementById("bookingLoading");
+
+        const bookingStep =
+            document.getElementById("bookingStep");
+
+        const paymentStep =
+            document.getElementById("paymentStep");
+
+        const bookingSuccess =
+            document.getElementById("bookingSuccess");
+
+
+        let selectedPackage = null;
+        let selectedPayment = "";
+
+
+        /* ==========================================
+           ALL PACKAGE BOOK BUTTONS
+        ========================================== */
+
+        const bookButtons =
+            document.querySelectorAll(".package-book-btn");
+
+
+        bookButtons.forEach(button => {
+
+            button.addEventListener("click", function () {
+
+                const card =
+                    this.closest(".package-card");
+
+                const packageName =
+                    card.querySelector("h3").textContent;
+
+                const packagePrice =
+                    card.querySelector("h4").textContent;
+
+                const packageDuration =
+                    card.querySelector(".package-content p").textContent;
+
+                const packageImage =
+                    card.querySelector("img").src;
+
+
+                selectedPackage = {
+
+                    name: packageName,
+
+                    price: packagePrice,
+
+                    duration: packageDuration,
+
+                    image: packageImage
+
+                };
+
+
+                /* Fill popup */
+
+                document.getElementById(
+                    "bookingPackageName"
+                ).textContent = packageName;
+
+
+                document.getElementById(
+                    "bookingPackagePrice"
+                ).textContent = packagePrice;
+
+
+                document.getElementById(
+                    "bookingPackageDuration"
+                ).textContent = packageDuration;
+
+
+                document.getElementById(
+                    "bookingImage"
+                ).src = packageImage;
+
+
+                /* Reset steps */
+
+                bookingStep.style.display = "block";
+
+                paymentStep.classList.remove("active");
+
+                bookingSuccess.classList.remove("active");
+
+                bookingLoading.classList.add("active");
+
+
+                bookingOverlay.classList.add("active");
+
+
+                /* Small loading effect */
+
+                setTimeout(() => {
+
+                    bookingLoading.classList.remove("active");
+
+                }, 900);
+
+            });
+
+        });
+
+
+        /* ==========================================
+           CLOSE BOOKING POPUP
+        ========================================== */
+
+        document.getElementById(
+            "bookingClose"
+        ).addEventListener("click", closeBooking);
+
+
+        function closeBooking() {
+
+            bookingOverlay.classList.remove("active");
+
+        }
+
+
+        /* Click outside popup */
+
+        bookingOverlay.addEventListener("click", function (event) {
+
+            if (event.target === bookingOverlay) {
+
+                closeBooking();
+
+            }
+
+        });
+
+
+        /* ==========================================
+           TRAVELLER FORM
+        ========================================== */
+
+        document.getElementById(
+            "travellerForm"
+        ).addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+
+            bookingStep.style.display = "none";
+
+            paymentStep.classList.add("active");
+
+        });
+
+
+        /* ==========================================
+           PAYMENT METHOD
+        ========================================== */
+
+        const paymentOptions =
+            document.querySelectorAll(".payment-option");
+
+
+        paymentOptions.forEach(option => {
+
+            option.addEventListener("click", function () {
+
+                paymentOptions.forEach(item => {
+
+                    item.classList.remove("selected");
+
+                });
+
+
+                this.classList.add("selected");
+
+
+                selectedPayment =
+                    this.dataset.payment;
+
+
+                document
+                    .querySelectorAll(".payment-form")
+                    .forEach(form => {
+
+                        form.classList.remove("active");
+
+                    });
+
+
+                if (selectedPayment === "upi") {
+
+                    document
+                        .getElementById("upiForm")
+                        .classList.add("active");
+
+                }
+
+
+                if (selectedPayment === "card") {
+
+                    document
+                        .getElementById("cardForm")
+                        .classList.add("active");
+
+                }
+
+            });
+
+        });
+
+
+        /* ==========================================
+           UPI PAYMENT
+        ========================================== */
+
+        document.getElementById(
+            "upiPayBtn"
+        ).addEventListener("click", function () {
+
+            const upi =
+                document.getElementById("upiId").value.trim();
+
+
+            if (upi === "") {
+
+                alert("Please enter your UPI ID.");
+
+                return;
+
+            }
+
+
+            completeBooking("UPI");
+
+        });
+
+
+        /* ==========================================
+           CARD PAYMENT
+        ========================================== */
+
+        document.getElementById(
+            "cardPayBtn"
+        ).addEventListener("click", function () {
+
+            const card =
+                document.getElementById("cardNumber").value.trim();
+
+
+            if (card === "") {
+
+                alert("Please enter your card number.");
+
+                return;
+
+            }
+
+
+            completeBooking("Credit / Debit Card");
+
+        });
+
+
+        /* ==========================================
+           COMPLETE BOOKING
+        ========================================== */
+
+        function completeBooking(paymentMethod) {
+
+            paymentStep.classList.remove("active");
+
+
+            bookingLoading.classList.add("active");
+
+
+            setTimeout(() => {
+
+                bookingLoading.classList.remove("active");
+
+                bookingSuccess.classList.add("active");
+
+
+                /* Generate demo booking ID */
+
+                const bookingId =
+                    "TA" +
+                    Math.floor(
+                        100000 +
+                        Math.random() * 900000
+                    );
+
+
+                document.getElementById(
+                    "receiptId"
+                ).textContent = bookingId;
+
+
+                document.getElementById(
+                    "receiptName"
+                ).textContent =
+                    document.getElementById(
+                        "travellerName"
+                    ).value;
+
+
+                document.getElementById(
+                    "receiptPackage"
+                ).textContent =
+                    selectedPackage.name;
+
+
+                document.getElementById(
+                    "receiptPayment"
+                ).textContent =
+                    paymentMethod;
+
+
+                document.getElementById(
+                    "receiptAmount"
+                ).textContent =
+                    selectedPackage.price;
+
+
+            }, 1500);
+
+        }
+
+
+        /* ==========================================
+           DONE BUTTON
+        ========================================== */
+
+        document.getElementById(
+            "doneBtn"
+        ).addEventListener("click", function () {
+
+            bookingOverlay.classList.remove("active");
+
+
+            /* Reset after closing */
+
+            setTimeout(() => {
+
+                document.getElementById(
+                    "travellerForm"
+                ).reset();
+
+                document.getElementById(
+                    "upiId"
+                ).value = "";
+
+                document.getElementById(
+                    "cardNumber"
+                ).value = "";
+
+                paymentOptions.forEach(option => {
+
+                    option.classList.remove("selected");
+
+                });
+
+                document
+                    .querySelectorAll(".payment-form")
+                    .forEach(form => {
+
+                        form.classList.remove("active");
+
+                    });
+
+
+                bookingSuccess.classList.remove("active");
+
+                bookingStep.style.display = "block";
+
+            }, 300);
+
+        });
+
+
+        /* ==========================================
+           ESC KEY CLOSE
+        ========================================== */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Escape" &&
+                    bookingOverlay.classList.contains("active")
+                ) {
+
+                    closeBooking();
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

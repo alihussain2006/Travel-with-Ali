@@ -1,0 +1,45 @@
+/* ===========================
+        STATISTICS
+=========================== */
+
+.stats{
+
+    background:#0d5c86;
+
+    padding:10px 3%;
+
+}
+
+.stats-container{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
+    gap:20px;
+
+}
+
+.stat-box{
+
+    text-align:center;
+
+    color:white;
+
+    padding:10px;
+
+}
+
+.stat-box h2{
+
+    font-size:34px;
+
+    margin-bottom:6px;
+
+}
+
+.stat-box p{
+
+    font-size:16px;
+
+}
